@@ -1,0 +1,14 @@
+# virtualenvs -- rebuilt from pyproject.toml + uv.lock, never committed
+.venv/
+.venv-*/
+
+# python
+__pycache__/
+*.py[cod]
+.pytest_cache/
+
+# jupyter
+.ipynb_checkpoints/
+
+# macos
+.DS_Store

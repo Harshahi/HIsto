@@ -1,0 +1,17 @@
+[project]
+name = "histogram"
+version = "0.1.0"
+description = "Encoder for Deng and Raviv, 'Efficient Vector Symbolic Architectures from Histogram Recovery' (arXiv:2511.01838)"
+requires-python = ">=3.13"
+dependencies = [
+    "numpy>=2.1",
+    "matplotlib>=3.9",
+    "sympy>=1.13",
+    "ipykernel>=6.29",
+    "nbconvert>=7.16",
+]
+
+[tool.uv]
+# notebooks only -- nothing here is importable as a distribution, so uv should not
+# try to build the project itself when syncing.
+package = false

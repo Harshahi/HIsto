@@ -15,3 +15,19 @@ dependencies = [
 # notebooks only -- nothing here is importable as a distribution, so uv should not
 # try to build the project itself when syncing.
 package = false
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+# tests/ is not a package; conftest.py is imported directly by the test modules
+pythonpath = ["tests"]
+addopts = "-q --strict-markers"
+filterwarnings = [
+    "ignore:FigureCanvasAgg is non-interactive:UserWarning",
+]
+
+[dependency-groups]
+dev = [
+    "nbclient>=0.11.0",
+    "nbformat>=5.11.1",
+    "pytest>=9.1.1",
+]

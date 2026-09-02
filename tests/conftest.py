@@ -78,5 +78,5 @@ def encode_ns():
 @pytest.fixture(scope="session")
 def encode_m_ns():
     ns, skipped = load_notebook("encode_m.ipynb")
-    assert "Code" in ns, f"encode_m.ipynb did not define Code; skipped={skipped}"
+    assert "histo_encode" in ns, f"encode_m.ipynb did not define histo_encode; {skipped}"
     return ns

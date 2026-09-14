@@ -4,6 +4,7 @@ The notebooks are the source of truth in this project -- there is no importable
 module -- so the tests exec the notebooks' own code cells. That way a test can
 never drift from the notebook it is testing.
 """
+import ast
 import contextlib
 import io
 import os
@@ -17,8 +18,24 @@ os.environ.setdefault("MPLBACKEND", "Agg")     # before any matplotlib import
 ROOT = pathlib.Path(__file__).resolve().parents[1]
 
 _MAGIC = re.compile(r"^(\s*)([%!].*)$", re.MULTILINE)
-# Cells that draw: slow, and they write into figures/. The end-to-end test covers them.
-_FIGURE_MARKERS = ("fig.savefig", "plt.subplots")
+
+
+def _draws_a_figure(src):
+    """True if the cell actually *calls* .show() or .savefig().
+
+    Detected via the AST rather than substring search on purpose. Some of these
+    notebooks contain their own loader with a skip-list of marker strings
+    (sidorenko_fischer.ipynb does), and a substring match would see those
+    literals and wrongly drop the cell that defines them -- which silently
+    knocked out an entire imports cell before this was AST-based.
+    """
+    try:
+        tree = ast.parse(src)
+    except SyntaxError:
+        return False
+    return any(isinstance(n, ast.Call) and isinstance(n.func, ast.Attribute)
+               and n.func.attr in ("show", "savefig")
+               for n in ast.walk(tree))
 
 
 def strip_magics(src):
@@ -44,7 +61,7 @@ def load_notebook(name, skip_figures=True):
         cid = cell.get("id")
         if not src.strip():
             continue
-        if skip_figures and any(k in src for k in _FIGURE_MARKERS):
+        if skip_figures and _draws_a_figure(src):
             continue
         try:
             compiled = compile(src, f"{name}[{cid}]", "exec")

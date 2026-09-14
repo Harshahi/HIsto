@@ -401,4 +401,4 @@ def test_notebook_executes_end_to_end():
     assert not errors, [f"{e.get('ename')}: {e.get('evalue')}" for e in errors]
     figures = [o for cell in nb.cells for o in cell.get("outputs", [])
                if o.get("output_type") == "display_data"]
-    assert len(figures) == 3, f"expected 3 embedded figures, got {len(figures)}"
+    assert len(figures) == 4, f"expected 4 embedded figures, got {len(figures)}"

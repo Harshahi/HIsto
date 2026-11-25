@@ -1,0 +1,26 @@
+14:55:34  === d=1, sigma to 5, 1000 trials (finishing the interrupted run)
+resuming: 147 cells already complete (148,000 trials kept)
+p=3 m=3 K=3 d=1 N=27, t=1..15, 15 sigma, 1000 trials -> 1560 chunks on 9 workers
+  40/1560 chunks, 150,000 trials, 39s
+  80/1560 chunks, 152,000 trials, 91s
+  120/1560 chunks, 154,000 trials, 134s
+  160/1560 chunks, 156,000 trials, 220s
+  200/1560 chunks, 158,000 trials, 291s
+  240/1560 chunks, 160,000 trials, 422s
+  280/1560 chunks, 162,000 trials, 531s
+  320/1560 chunks, 164,000 trials, 704s
+  360/1560 chunks, 166,000 trials, 861s
+  400/1560 chunks, 168,000 trials, 1080s
+  440/1560 chunks, 170,000 trials, 1284s
+  480/1560 chunks, 172,000 trials, 1539s
+  520/1560 chunks, 174,000 trials, 1797s
+  560/1560 chunks, 176,000 trials, 2071s
+  600/1560 chunks, 178,000 trials, 2286s
+  640/1560 chunks, 180,000 trials, 2478s
+  680/1560 chunks, 182,000 trials, 2794s
+  720/1560 chunks, 184,000 trials, 3118s
+  760/1560 chunks, 186,000 trials, 3314s
+  800/1560 chunks, 188,000 trials, 3641s
+  840/1560 chunks, 190,000 trials, 4035s
+  880/1560 chunks, 192,000 trials, 4556s
+  920/1560 chunks, 194,000 trials, 5252s

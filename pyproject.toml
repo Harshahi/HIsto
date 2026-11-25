@@ -20,7 +20,11 @@ package = false
 testpaths = ["tests"]
 # tests/ is not a package; conftest.py is imported directly by the test modules
 pythonpath = ["tests"]
-addopts = "-q --strict-markers"
+addopts = "-q --strict-markers -m 'not slow'"
+markers = [
+    # decodes at d >= 2 cost ~25s each; run them with: pytest -m slow
+    "slow: a test that runs real higher-multiplicity decodes",
+]
 filterwarnings = [
     "ignore:FigureCanvasAgg is non-interactive:UserWarning",
 ]
@@ -36,10 +40,27 @@ dev = [
 # the pip-installable, wheel-shipping fork of SageMath that provides it. Kept in
 # its own group because it is ~200 MB and nothing else in the project needs it:
 #     uv sync --group sage
+# streamlit_app/ only.
+#     uv sync --group app --group sage
+app = [
+    "streamlit>=1.40",
+    "pandas>=2.2",
+]
 sage = [
     "passagemath-modules>=10.8",
     "passagemath-categories>=10.8",
     "passagemath-pari>=10.8",
     "passagemath-symbolics>=10.8",
     "passagemath-ntl>=10.8",
+    # Without this every matrix falls back to Matrix_generic_dense -- each entry a
+    # boxed Sage object dispatched through Python -- including GF(2) and GF(3),
+    # which normally get M4RI and LinBox/FFLAS-FFPACK. Measured on a 1200x900
+    # right_kernel: 20.8s generic, 0.32s via the GF(3) embedding with this
+    # installed, a 65x difference on the stage that is ~76% of a decode.
+    #
+    # GF(27) itself stays generic even with this -- full SageMath has no fast class
+    # for odd-characteristic extension fields either -- so core.unbundle does not
+    # speed up on its own. This is the prerequisite for embedding into the prime
+    # field, not the speedup.
+    "passagemath-linbox>=10.8",
 ]

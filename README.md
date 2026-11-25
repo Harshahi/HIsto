@@ -4,6 +4,11 @@ An implementation of Deng and Raviv, *Efficient Vector Symbolic Architectures fr
 Histogram Recovery* (arXiv:2511.01838), with the two borrowed algorithms it depends on.
 All four source papers are in the repo as PDFs (gitignored, so `ls *.pdf` to see them).
 
+**[REPORT.md](REPORT.md)** — a worked write-up: how decoding happens step by step, how
+Gaussian noise affects recovery (120,000 decodes), and whether raising the
+Guruswami-Sudan multiplicity `d` buys anything (it does not — `d` cancels out of the
+binding inequality).
+
 ## The whole thing in one page
 
 **Encoding.** Take a message, push it through three layers:
@@ -86,12 +91,36 @@ IV-B:  throw the counts away, keep only WHICH symbols appeared  ->  Y
        3. filter       -- keep candidates whose every symbol was actually observed
 ```
 
-Stage IV-A is exact and is one matrix multiply (`H^dagger H = N I`). Stage IV-B is
+Stage IV-A is exact and is one matrix multiply (`H^dagger H = N I`) followed by a
+rounding. That rounding is the paper's **Corollary 1** -- Lemma 1 shows the Voronoi cell
+of this lattice makes nearest-point decoding identical to coordinatewise rounding, and
+Corollary 2 gives the usable sufficient condition `||e_i||_2 < sqrt(N)/2`. Stage IV-B is
 Sidorenko-Fischer's Algorithm 2; steps 1-2 are theirs, step 3 is this paper's addition.
 Source paper: `Low-Complexity_List_Decoding_of_Reed-Solomon_Coded_Pulse_Position_Modulation.pdf`.
 
 The notebook also checks itself against that paper directly — cost `C(M)`, Theorem 1,
 the list-size bound, and the adaptive multiplicity rule.
+
+### `gaussian_noise.ipynb` — what a real channel does
+
+The app's noise probe fixes `||e_j||` to a chosen value; a real system perturbs every
+entry independently and normally. Under that model Stage A has an **exact closed form**
+rather than a bound:
+
+```
+P(Stage A exact) = erf( sqrt(N) / 2*sigma ) ^ (N^2)
+```
+
+because `a = Re(H'e)/N` has i.i.d. `N(0, sigma^2/2N)` coordinates and Lemma 1 needs all
+`N^2` of them inside `(-0.5, 0.5)`. Verified against Monte Carlo at several `N`.
+
+Two consequences: the cliff at Corollary 2's threshold becomes a smooth curve, and the
+bound turns out to be conservative by a factor that **grows with N** — about `2x` at
+`N = 27`, over `12x` at `N = 2048`, following `sigma ~ sqrt(N / log N)`. Bigger fields
+are more noise-robust, because the Hadamard transform averages noise over `N` entries
+and that gain outruns the `N^2` coordinates that must stay in range.
+
+![gaussian](figures/gaussian_stage_a.png)
 
 ### `demo.ipynb` — all of it, end to end
 
@@ -106,6 +135,30 @@ Binding recovery is *not* list decoding. Because each attribute owns its own mes
 coordinate, the bound vector is itself a codeword, so you decode it and read off the
 slots. That follows `linear.pdf` Theorem 2 (solve `x . B = c`, split the coefficients by
 subcode).
+
+### `streamlit_app/` — the same thing with sliders
+
+`histogram_recovery.ipynb` with `(p, m, K, d)` moved into a sidebar, so you can drag the
+parameters and watch the `u_max` cliff move.
+
+```bash
+uv sync --group app --group sage
+uv run --group app --group sage streamlit run streamlit_app/app.py
+```
+
+![noise grid](figures/noise_grid.png)
+
+Eight tabs, formatted the way the notebook formats things — same monospace tables,
+same `show_histogram`, same `f(x) = ...` lines — plus two noise tabs the notebook has no
+counterpart for. **Noise** adds error of a chosen norm, up to and past the level §IV-A
+permits, and shows Corollary 2 being tight in one direction and vacuous in another.
+**Gaussian noise** adds the physical model `e ~ CN(0, sigma^2 I)` and plots recovery
+over a `(t, sigma)` grid at 1000 trials per cell.
+
+Each slider's range is derived from the ones above it, so an unusable combination is
+unreachable. Sage cannot be called from Streamlit's script thread (PARI is not
+thread-safe and the Guruswami-Sudan root finder segfaults the server), so decoding runs
+in a subprocess. See [streamlit_app/README.md](streamlit_app/README.md).
 
 ### `rs_hadamard_encoder.ipynb`
 
@@ -148,6 +201,7 @@ almost always right.
 ```bash
 uv sync                  # numpy, matplotlib, sympy, ipykernel
 uv sync --group sage     # + passagemath, needed for guruswami_sudan and sidorenko_fischer
+uv sync --group app      # + streamlit and pandas, needed for streamlit_app/
 uv run pytest            # 112 test functions -> 492 cases, across the five notebooks
 ```
 

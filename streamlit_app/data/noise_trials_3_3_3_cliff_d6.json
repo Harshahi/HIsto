@@ -1,0 +1,44 @@
+{
+ "p": 3,
+ "m": 3,
+ "K": 3,
+ "N": 27,
+ "d": 6,
+ "u_max": 13,
+ "trials": 1,
+ "sigmas": [
+  0.0,
+  1.2
+ ],
+ "t_max": 13,
+ "complete": false,
+ "rows": [
+  {
+   "t": 12,
+   "sigma": 0.0,
+   "n": 1,
+   "stage_a_ok": 1,
+   "exact": 1,
+   "n_correct": 12,
+   "sec": 520.6
+  },
+  {
+   "t": 12,
+   "sigma": 1.2,
+   "n": 1,
+   "stage_a_ok": 0,
+   "exact": 1,
+   "n_correct": 12,
+   "sec": 538.1
+  },
+  {
+   "t": 13,
+   "sigma": 0.0,
+   "n": 1,
+   "stage_a_ok": 1,
+   "exact": 1,
+   "n_correct": 13,
+   "sec": 533.1
+  }
+ ]
+}

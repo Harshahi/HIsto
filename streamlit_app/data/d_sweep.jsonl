@@ -1,0 +1,13 @@
+{"d": 1, "t": 11, "sec": 1.2315497398376465, "n_rec": 11, "n_correct": 11, "spurious": 0, "exact": true, "ell": 11}
+{"d": 1, "t": 12, "sec": 1.4432940483093262, "n_rec": 12, "n_correct": 12, "spurious": 0, "exact": true, "ell": 12}
+{"d": 1, "t": 13, "sec": 1.7110939025878906, "n_rec": 13, "n_correct": 13, "spurious": 0, "exact": true, "ell": 13}
+{"d": 1, "t": 14, "sec": 7.021968841552734, "n_rec": 0, "n_correct": 0, "spurious": 0, "exact": false, "ell": -1}
+{"d": 1, "t": 15, "sec": 7.309329032897949, "n_rec": 0, "n_correct": 0, "spurious": 0, "exact": false, "ell": -1}
+{"d": 1, "t": 16, "sec": 7.712905168533325, "n_rec": 0, "n_correct": 0, "spurious": 0, "exact": false, "ell": -1}
+{"d": 1, "t": 17, "sec": 8.011754035949707, "n_rec": 0, "n_correct": 0, "spurious": 0, "exact": false, "ell": -1}
+{"d": 1, "t": 18, "sec": 8.498100996017456, "n_rec": 0, "n_correct": 0, "spurious": 0, "exact": false, "ell": -1}
+{"d": 1, "t": 19, "sec": 8.623138904571533, "n_rec": 0, "n_correct": 0, "spurious": 0, "exact": false, "ell": -1}
+{"d": 1, "t": 20, "sec": 8.845003843307495, "n_rec": 0, "n_correct": 0, "spurious": 0, "exact": false, "ell": -1}
+{"d": 2, "t": 11, "sec": 13.047614336013794, "n_rec": 11, "n_correct": 11, "spurious": 0, "exact": true, "ell": 11}
+{"d": 2, "t": 12, "sec": 16.856266021728516, "n_rec": 12, "n_correct": 12, "spurious": 0, "exact": true, "ell": 12}
+{"d": 2, "t": 13, "sec": 20.867056846618652, "n_rec": 13, "n_correct": 13, "spurious": 0, "exact": true, "ell": 13}

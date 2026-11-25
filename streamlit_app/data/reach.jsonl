@@ -1,0 +1,4 @@
+{"d": 5, "t": 14, "n_P": 305, "budget": 135, "monomials": 4624, "constraints": 4575, "kernel": 156, "sec_kernel": 1465.6, "genuine_recovered": 14, "exact": true, "sec_total": 1482.6}
+{"d": 5, "t": 15, "n_P": 323, "budget": 135, "monomials": 4624, "constraints": 4845, "kernel": 0, "sec_kernel": 6479.5, "genuine_recovered": 0, "exact": false, "sec_total": 6479.5}
+{"d": 4, "t": 14, "n_P": 305, "budget": 108, "monomials": 2970, "constraints": 3050, "kernel": 27, "sec_kernel": 8408.8, "genuine_recovered": 14, "exact": true, "sec_total": 8907.0}
+{"d": 4, "t": 15, "n_P": 323, "budget": 108, "monomials": 2970, "constraints": 3230, "kernel": 0, "sec_kernel": 2131.8, "genuine_recovered": 0, "exact": false, "sec_total": 2131.8}

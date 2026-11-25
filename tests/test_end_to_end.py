@@ -218,4 +218,68 @@ def test_notebook_executes_end_to_end():
     assert not errors, [f"{e.get('ename')}: {e.get('evalue')}" for e in errors]
     figures = [o for cell in nb.cells for o in cell.get("outputs", [])
                if o.get("output_type") == "display_data"]
-    assert len(figures) == 1, f"expected 1 embedded figure, got {len(figures)}"
+    assert len(figures) == 2, f"expected 2 embedded figures, got {len(figures)}"
+
+
+# ================================================================
+# The break sweep: bundling past u_max until recovery dies.
+# ================================================================
+
+def test_break_sweep_ran_and_found_the_wall(e2e):
+    """The notebook's sweep must actually reach failure, else the successes
+    below it prove nothing."""
+    rows = e2e["break_rows"]
+    ts = sorted({r["t"] for r in rows})
+    assert min(ts) == 1 and max(ts) >= U_MAX + 2, "must sweep past u_max"
+    rate = lambda t, f: np.mean([r[f] for r in rows if r["t"] == t])
+    assert all(rate(t, "exact") == 1.0 for t in ts if t <= U_MAX)
+    assert all(rate(t, "exact") == 0.0 for t in ts if t > U_MAX)
+
+
+def test_the_wall_is_exactly_u_max_and_one_item_wide(e2e):
+    rows = e2e["break_rows"]
+    rate = lambda t, f: np.mean([r[f] for r in rows if r["t"] == t])
+    ts = sorted({r["t"] for r in rows})
+    last_ok = max(t for t in ts if rate(t, "exact") == 1.0)
+    first_bad = min(t for t in ts if rate(t, "exact") == 0.0)
+    assert last_ok == U_MAX
+    assert first_bad == U_MAX + 1, "no gradual decay -- it is a cliff"
+
+
+def test_both_stages_fail_together(e2e):
+    """Measured, and worth pinning: Algorithm 2 stops returning the true
+    codewords at the same t the filter stops discriminating."""
+    rows = e2e["break_rows"]
+    rate = lambda t, f: np.mean([r[f] for r in rows if r["t"] == t])
+    for t in sorted({r["t"] for r in rows}):
+        assert rate(t, "in_raw") == rate(t, "exact"), \
+            f"t={t}: Alg 2 and the filter disagreed; they failed together before"
+
+
+def test_filtering_inequality_predicts_the_wall_better_than_theorem_1(e2e):
+    """t(K-1) < N flips exactly at the observed wall. Theorem 1's sufficient
+    condition lapses six steps earlier and recovery carries on regardless, so
+    the combinatorial condition is the binding one here."""
+    rows = e2e["break_rows"]
+    rate = lambda t, f: np.mean([r[f] for r in rows if r["t"] == t])
+    ts = sorted({r["t"] for r in rows})
+
+    for t in ts:                                   # the inequality is exact
+        assert (t * (K - 1) < N) == (rate(t, "exact") == 1.0), f"t={t}"
+
+    # Theorem 1 (d=1): score N must be >= sqrt(2(K-1)*C(M)), C(M) = wt(Y)
+    med_wt = {t: np.median([r["wtY"] for r in rows if r["t"] == t]) for t in ts}
+    holds = [t for t in ts if N >= np.sqrt(2 * (K - 1) * med_wt[t])]
+    assert max(holds) < U_MAX, "Thm 1 should lapse well before the real wall"
+    for t in range(max(holds) + 1, U_MAX + 1):     # and recovery continues anyway
+        assert rate(t, "exact") == 1.0, f"t={t}: past the guarantee but should work"
+
+
+def test_Y_fills_up_as_t_grows(e2e):
+    """The mechanism: Y approaches N^2, where it carries no information."""
+    rows = e2e["break_rows"]
+    ts = sorted({r["t"] for r in rows})
+    med = [np.median([r["wtY"] for r in rows if r["t"] == t]) for t in ts]
+    assert all(b >= a for a, b in zip(med, med[1:])), "wt(Y) must be monotone in t"
+    assert med[0] == N, "a single codeword touches exactly N cells"
+    assert max(med) < N * N, "and we never actually saturate in this range"

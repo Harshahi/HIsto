@@ -1,0 +1,15 @@
+{"p": 3, "m": 3, "K": 3, "d": 1, "t": 13, "ell": 13, "n_P": 285, "unknowns": 196, "constraints": 285, "kernel": 1, "roots": 13, "found": 13, "exact": true, "sec": 0.3}
+{"p": 3, "m": 3, "K": 3, "d": 1, "t": 14, "ell": 13, "n_P": 305, "unknowns": 196, "constraints": 305, "kernel": 0, "roots": 0, "found": 0, "exact": false, "sec": 0.2}
+{"p": 3, "m": 3, "K": 3, "d": 2, "t": 13, "ell": 27, "n_P": 285, "unknowns": 756, "constraints": 855, "kernel": 3, "roots": 13, "found": 13, "exact": true, "sec": 7.2}
+{"p": 3, "m": 3, "K": 3, "d": 2, "t": 14, "ell": 27, "n_P": 305, "unknowns": 756, "constraints": 915, "kernel": 0, "roots": 0, "found": 0, "exact": false, "sec": 6.5}
+{"p": 3, "m": 3, "K": 3, "d": 3, "t": 14, "ell": 40, "n_P": 305, "unknowns": 1681, "constraints": 1830, "kernel": 0, "roots": 0, "found": 0, "exact": false, "sec": 55.0}
+{"p": 3, "m": 3, "K": 3, "d": 4, "t": 14, "ell": 54, "n_P": 305, "unknowns": 2970, "constraints": 3050, "kernel": 27, "roots": 14, "found": 14, "exact": true, "sec": 305.0}
+{"p": 3, "m": 3, "K": 3, "d": 5, "t": 14, "ell": 67, "n_P": 305, "unknowns": 4624, "constraints": 4575, "kernel": 156, "roots": 14, "found": 14, "exact": true, "sec": 1094.0}
+{"p": 3, "m": 3, "K": 3, "d": 1, "t": 15, "ell": 13, "n_P": 323, "unknowns": 196, "constraints": 323, "kernel": 0, "roots": 0, "found": 0, "exact": false, "sec": 0.2}
+{"p": 3, "m": 3, "K": 3, "d": 2, "t": 15, "ell": 27, "n_P": 323, "unknowns": 756, "constraints": 969, "kernel": 0, "roots": 0, "found": 0, "exact": false, "sec": 8.0}
+{"p": 3, "m": 3, "K": 3, "d": 3, "t": 15, "ell": 40, "n_P": 323, "unknowns": 1681, "constraints": 1938, "kernel": 0, "roots": 0, "found": 0, "exact": false, "sec": 61.0}
+{"p": 3, "m": 3, "K": 3, "d": 4, "t": 15, "ell": 54, "n_P": 323, "unknowns": 2970, "constraints": 3230, "kernel": 0, "roots": 0, "found": 0, "exact": false, "sec": 317.0}
+{"p": 3, "m": 3, "K": 3, "d": 5, "t": 15, "ell": 67, "n_P": 323, "unknowns": 4624, "constraints": 4845, "kernel": 0, "roots": 0, "found": 0, "exact": false, "sec": 1133.0}
+{"p": 3, "m": 3, "K": 3, "d": 3, "t": 13, "ell": 40, "n_P": 285, "unknowns": 1681, "constraints": 1710, "kernel": 51, "roots": 13, "found": 13, "exact": true, "sec": 53.8}
+{"p": 3, "m": 3, "K": 3, "d": 4, "t": 13, "ell": 54, "n_P": 285, "unknowns": 2970, "constraints": 2850, "kernel": 200, "roots": 13, "found": 13, "exact": true, "sec": 270.3}
+{"p": 3, "m": 3, "K": 3, "d": 5, "t": 13, "ell": 67, "n_P": 285, "unknowns": 4624, "constraints": 4275, "kernel": 429, "roots": 13, "found": 13, "exact": true, "sec": 951.5}

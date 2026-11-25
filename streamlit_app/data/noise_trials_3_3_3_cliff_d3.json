@@ -1,0 +1,99 @@
+{
+ "p": 3,
+ "m": 3,
+ "K": 3,
+ "N": 27,
+ "d": 3,
+ "u_max": 13,
+ "trials": 5,
+ "sigmas": [
+  0.0,
+  1.2,
+  1.4
+ ],
+ "t_max": 14,
+ "complete": false,
+ "rows": [
+  {
+   "t": 12,
+   "sigma": 0.0,
+   "n": 1,
+   "stage_a_ok": 1,
+   "exact": 1,
+   "n_correct": 12,
+   "sec": 42.0
+  },
+  {
+   "t": 12,
+   "sigma": 1.2,
+   "n": 5,
+   "stage_a_ok": 1,
+   "exact": 5,
+   "n_correct": 60,
+   "sec": 206.4
+  },
+  {
+   "t": 12,
+   "sigma": 1.4,
+   "n": 3,
+   "stage_a_ok": 0,
+   "exact": 1,
+   "n_correct": 33,
+   "sec": 308.0
+  },
+  {
+   "t": 13,
+   "sigma": 0.0,
+   "n": 1,
+   "stage_a_ok": 1,
+   "exact": 1,
+   "n_correct": 13,
+   "sec": 72.9
+  },
+  {
+   "t": 13,
+   "sigma": 1.2,
+   "n": 3,
+   "stage_a_ok": 0,
+   "exact": 3,
+   "n_correct": 39,
+   "sec": 371.1
+  },
+  {
+   "t": 13,
+   "sigma": 1.4,
+   "n": 3,
+   "stage_a_ok": 0,
+   "exact": 1,
+   "n_correct": 36,
+   "sec": 695.9
+  },
+  {
+   "t": 14,
+   "sigma": 0.0,
+   "n": 1,
+   "stage_a_ok": 1,
+   "exact": 0,
+   "n_correct": 0,
+   "sec": 230.9
+  },
+  {
+   "t": 14,
+   "sigma": 1.2,
+   "n": 3,
+   "stage_a_ok": 0,
+   "exact": 0,
+   "n_correct": 0,
+   "sec": 685.3
+  },
+  {
+   "t": 14,
+   "sigma": 1.4,
+   "n": 3,
+   "stage_a_ok": 0,
+   "exact": 0,
+   "n_correct": 0,
+   "sec": 678.3
+  }
+ ]
+}
